@@ -1,879 +1,340 @@
 <!DOCTYPE html>
 <html lang="ms">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Picto Mate - Smart TCA & Milestone</title>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-<style>
-:root {
---bg-cream: #FFFDF6;
---pastel-green: #6B8E23;
---pastel-pink: #F497B1;
---pastel-purple: #CDB4DB;
---pastel-orange: #FF9F1C;
---pastel-yellow: #FFD166;
---text-dark: #333333;
---danger-red: #FF6B6B;
---sky-blue: #B3E5FC;
---success-green: #A3E635;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PICTO MATE - Homepage</title>
+    <style>
+        /* --- Tema Warna & Font (Minimalist, Fun & Elegant) --- */
+        :root {
+            --primary-color: #4A90E2; /* Biru lembut & profesional */
+            --secondary-color: #FF6B6B; /* Warna fun untuk elemen kanak-kanak */
+            --bg-light: #F9FAFC;
+            --text-dark: #2C3E50;
+            --card-bg: #FFFFFF;
+        }
 
-*, *::before, *::after {
-box-sizing: border-box;
-}
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-body {
-font-family: 'Poppins', sans-serif;
-background-color: #F0F4F8;
-color: var(--text-dark);
-margin: 0;
-padding: 15px;
-display: flex;
-flex-direction: column;
-align-items: center;
-min-height: 100vh;
-}
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
 
-.app-container {
-max-width: 450px;
-width: 100%;
-background: var(--bg-cream);
-border-radius: 40px;
-box-shadow: 0 20px 40px rgba(0,0,0,0.12);
-overflow: hidden;
-border: 8px solid #333; 
-position: relative;
-transition: all 0.3s ease;
-}
+        /* --- Header / Navigation --- */
+        header {
+            background-color: var(--card-bg);
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
 
-@keyframes float {
-0% { transform: translateY(0px) rotate(0deg); }
-50% { transform: translateY(-10px) rotate(3deg); }
-100% { transform: translateY(0px) rotate(0deg); }
-}
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-@keyframes pulse-btn {
-0% { transform: scale(1); }
-50% { transform: scale(1.03); }
-100% { transform: scale(1); }
-}
+        .logo span {
+            color: var(--secondary-color);
+        }
 
-.app-header {
-background: var(--sky-blue);
-padding: 30px 15px 20px 15px;
-text-align: center;
-font-family: 'Fredoka One', cursive;
-font-size: 26px;
-color: #2B2D42;
-letter-spacing: 1px;
-border-bottom-left-radius: 30px;
-border-bottom-right-radius: 30px;
-position: relative;
-box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-}
+        /* --- 1. BANNER GAMBAR BERGERAK (CAROUSEL) --- */
+        .carousel-container {
+            position: relative;
+            max-width: 1200px;
+            height: 400px;
+            margin: 2rem auto;
+            background-color: #E5E9F0;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
 
-.lang-selector {
-position: absolute;
-top: 5px;
-right: 10px;
-background: white;
-border: 1px solid #ccc;
-border-radius: 20px;
-font-size: 11px;
-padding: 2px 8px;
-font-weight: bold;
-cursor: pointer;
-outline: none;
-}
+        .carousel-slide {
+            display: flex;
+            width: 300%; /* Untuk 3 gambar */
+            height: 100%;
+            animation: slideAnimation 12s infinite ease-in-out;
+        }
 
-.content-padding {
-padding: 25px 20px;
-}
+        .slide {
+            width: 33.333%;
+            height: 100%;
+            position: relative;
+        }
 
-.image-canvas-card {
-width: 100%;
-background: #FFFFFF;
-border: 4px solid var(--pastel-purple);
-border-radius: 24px;
-padding: 25px 15px;
-text-align: center;
-margin-bottom: 25px;
-box-shadow: 0 8px 20px rgba(205,180,219,0.4);
-animation: float 4s ease-in-out infinite;
-position: relative;
-overflow: hidden;
-}
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
-.image-canvas-card .main-emoji {
-font-size: 75px; 
-display: block;
-margin-bottom: 10px;
-filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
-}
+        .slide-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            color: white;
+            padding: 2rem;
+            padding-top: 4rem;
+        }
 
-.image-canvas-card .canva-tag {
-background: var(--pastel-yellow);
-color: #2B2D42;
-font-size: 11px;
-font-weight: bold;
-padding: 6px 14px;
-border-radius: 20px;
-display: inline-block;
-margin-top: 5px;
-text-transform: uppercase;
-line-height: 1.3;
-}
+        .slide-overlay h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
 
-.bubble-chat {
-background: var(--pastel-pink);
-color: white;
-padding: 18px;
-border-radius: 24px;
-border-top-left-radius: 5px;
-font-weight: 600;
-line-height: 1.6;
-margin-bottom: 25px;
-box-shadow: 0 6px 15px rgba(244,151,177,0.4);
-font-size: 14px;
-}
+        /* Animasi Pergerakan Gambar (Smooth & Elegant) */
+        @keyframes slideAnimation {
+            0%, 25% { transform: translateX(0); }
+            33%, 58% { transform: translateX(-33.333%); }
+            66%, 91% { transform: translateX(-66.666%); }
+            100% { transform: translateX(0); }
+        }
 
-.btn-nav {
-width: 100%;
-padding: 16px;
-border: none;
-border-radius: 20px;
-font-weight: 700;
-font-size: 16px;
-cursor: pointer;
-margin-bottom: 15px;
-display: flex;
-align-items: center;
-justify-content: center;
-gap: 12px;
-transition: all 0.2s ease;
-box-shadow: 0 6px 12px rgba(0,0,0,0.08);
-}
+        /* --- CONTAINER UTAMA --- */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem 4rem 1.5rem;
+        }
 
-.btn-nav:hover {
-transform: translateY(-3px) scale(1.01);
-box-shadow: 0 8px 16px rgba(0,0,0,0.15);
-}
+        /* --- 2. BAHAGIAN PERKEMBANGAN (JANGAN HILANG) --- */
+        .section-title {
+            font-size: 1.8rem;
+            margin: 3rem 0 1.5rem 0;
+            position: relative;
+            display: inline-block;
+        }
 
-.btn-pulse {
-animation: pulse-btn 2.5s infinite ease-in-out;
-}
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50%;
+            height: 4px;
+            background-color: var(--secondary-color);
+            border-radius: 2px;
+        }
 
-.grid-age {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 12px;
-margin-top: 15px;
-}
+        .grid-perkembangan {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
 
-.btn-age {
-font-family: 'Poppins', sans-serif;
-border: none;
-padding: 15px;
-border-radius: 18px;
-color: white;
-font-weight: 700;
-font-size: 14px;
-cursor: pointer;
-transition: all 0.2s ease;
-box-shadow: 0 4px 8px rgba(0,0,0,0.06);
-}
+        .card-perkembangan {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-top: 5px solid var(--primary-color);
+        }
 
-.btn-age:hover {
-transform: scale(1.05);
-}
+        .card-perkembangan:nth-child(2) {
+            border-top-color: var(--secondary-color);
+        }
 
-.milestone-box {
-background: #FFF;
-border-radius: 20px;
-padding: 18px;
-margin-bottom: 15px;
-box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-border-left: 8px solid var(--pastel-green);
-transition: all 0.3s ease;
-cursor: pointer;
-position: relative;
-user-select: none;
-}
+        .card-perkembangan:nth-child(3) {
+            border-top-color: #47D165;
+        }
 
-.milestone-box:hover { transform: translateX(5px); }
+        .card-perkembangan:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+        }
 
-.milestone-box.motor-kasar { border-left-color: var(--pastel-green); background: #F9FBE7; }
-.milestone-box.motor-halus { border-left-color: var(--pastel-pink); background: #FFF1F5; }
-.milestone-box.speech { border-left-color: var(--pastel-purple); background: #F3E5F5; }
-.milestone-box.social { border-left-color: var(--pastel-orange); background: #FFF3E0; }
+        .card-perkembangan h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
 
-.milestone-box.achieved {
-border-left-color: #22C55E !important;
-background-color: #DCFCE7 !important;
-box-shadow: inset 0 0 10px rgba(34, 197, 94, 0.1);
-}
+        .card-perkembangan ul {
+            list-style-type: none;
+        }
 
-.milestone-box h4 {
-margin: 0 0 8px 0;
-font-size: 15px;
-display: flex;
-align-items: center;
-justify-content: space-between;
-gap: 8px;
-color: #2B2D42;
-}
+        .card-perkembangan li {
+            margin-bottom: 0.75rem;
+            position: relative;
+            padding-left: 1.5rem;
+            font-size: 0.95rem;
+        }
 
-.check-badge {
-font-size: 14px;
-background: #E2E8F0;
-padding: 2px 8px;
-border-radius: 12px;
-font-weight: bold;
-transition: all 0.2s;
-}
-.milestone-box.achieved .check-badge {
-background: #22C55E;
-color: white;
-}
+        .card-perkembangan li::before {
+            content: 'âœ“';
+            position: absolute;
+            left: 0;
+            color: #47D165;
+            font-weight: bold;
+        }
 
-.progress-container {
-background: #E2E8F0;
-border-radius: 12px;
-height: 20px;
-width: 100%;
-margin-bottom: 20px;
-overflow: hidden;
-position: relative;
-box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
-}
-.progress-bar {
-background: linear-gradient(90deg, var(--pastel-green), #22C55E);
-height: 100%;
-width: 0%;
-transition: width 0.4s ease;
-}
-.progress-text {
-position: absolute;
-width: 100%;
-text-align: center;
-top: 0; left: 0;
-font-size: 11px;
-font-weight: bold;
-line-height: 20px;
-color: #2B2D42;
-}
+        /* --- INFO / SMART TCA CARD BUTTON --- */
+        .info-action-box {
+            background: linear-gradient(135deg, #4A90E2, #357ABD);
+            color: white;
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            margin-top: 4rem;
+            box-shadow: 0 10px 25px rgba(74, 144, 226, 0.25);
+        }
 
-.redflags-card {
-background: #FFEBEE;
-border: 3px dashed var(--danger-red);
-border-radius: 20px;
-padding: 18px;
-margin-top: 20px;
-}
+        .info-action-box h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
 
-.faq-item {
-background: #F8F9FA;
-border-radius: 16px;
-margin-bottom: 12px;
-padding: 15px;
-cursor: pointer;
-border: 1px solid #E2E8F0;
-transition: background 0.2s;
-}
-.faq-item:hover { background: #EDF2F7; }
-.faq-question { font-weight: 700; font-size: 13px; color: #2B2D42; display: flex; justify-content: space-between;}
-.faq-answer { display: none; margin-top: 10px; font-size: 13px; color: #555; line-height: 1.6; border-top: 1px dashed #CBD5E1; padding-top: 8px; }
+        .info-action-box p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 2rem auto;
+        }
 
-.form-group { margin-bottom: 18px; }
-label { font-weight: 700; font-size: 14px; display: block; margin-bottom: 8px; color: #4A5568; }
-input[type="date"], input[type="time"] {
-width: 100%; padding: 14px; border: 2px solid #CBD5E1; border-radius: 16px; font-family: inherit; font-size: 15px; outline: none; transition: border-color 0.2s;
-}
-input:focus { border-color: var(--pastel-purple); }
+        .btn-main {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
 
-#sync-status {
-display: none;
-background: rgba(0,0,0,0.85);
-color: white;
-position: absolute;
-top: 0; left: 0; width: 100%; height: 100%;
-z-index: 100;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-text-align: center;
-padding: 20px;
-border-radius: 32px;
-}
-.spinner {
-width: 50px; height: 50px; border: 5px solid #fff; border-top-color: var(--pastel-orange); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 15px;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-</style>
+        .btn-main:hover {
+            background-color: #ff5252;
+            transform: scale(1.05);
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 768px) {
+            .carousel-container {
+                height: 250px;
+            }
+            .slide-overlay h2 {
+                font-size: 1.4rem;
+            }
+            .info-action-box {
+                padding: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
 
-<div class="app-container">
+    <!-- Header Menu -->
+    <header>
+        <div class="logo">PICTO <span>MATE</span></div>
+    </header>
 
-<div id="sync-status">
-<div class="spinner"></div>
-<h3 id="sync-title">Menghantar Data Sistem...</h3>
-<p id="sync-desc" style="font-size: 13px; color: #CBD5E1;"></p>
-</div>
+    <!-- 1. Banner Gambar Bergerak (Carousel) -->
+    <div class="carousel-container">
+        <div class="carousel-slide">
+            
+            <!-- Slide 1 -->
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=1200&q=80" alt="Sesi Semakan Rutin">
+                <div class="slide-overlay">
+                    <h2>Sesi Semakan Rutin Kanak-Kanak</h2>
+                    <p>Pastikan si manja anda tidak terlepas temu janji penting untuk pertumbuhan yang sihat.</p>
+                </div>
+            </div>
 
-<div id="screen-home">
-<div class="app-header">
-<span id="txt-app-title">PICTO MATE</span>
-<select class="lang-selector" id="lang-select" onchange="changeLanguage(this.value)">
-<option value="ms">???? BM</option>
-<option value="en">???? EN</option>
-<option value="zh">???? ??</option>
-<option value="ta">???? ?????</option>
-</select>
-</div>
-<div class="content-padding">
-<div class="image-canvas-card">
-<span class="main-emoji">?????</span>
-<b style="font-size:16px; color:#4A5568; display:block;" id="txt-img-title-1">Smart Tracking & Peringatan Hub</b>
-<span class="canva-tag">A Smart TCA Bookmark & Digital Reminder Ecosystem</span>
-</div>
+            <!-- Slide 2 -->
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1536640712-4d4c36ff0e4e?auto=format&fit=crop&w=1200&q=80" alt="Perkembangan Si Manja">
+                <div class="slide-overlay">
+                    <h2>Pantau Milestone Anak Anda</h2>
+                    <p>Setiap fasa umur bermula dari 1 tahun 6 bulan adalah sangat kritikal.</p>
+                </div>
+            </div>
 
-<div class="bubble-chat" id="txt-welcome">
-Kami faham, menguruskan jadual harian dan temu janji klinik anak boleh menjadi sangat mencabar buat mak & ayah!
-</div>
+            <!-- Slide 3 -->
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=1200&q=80" alt="Kad Temu Janji Pintar">
+                <div class="slide-overlay">
+                    <h2>PICTO MATE: Smart TCA</h2>
+                    <p>Inovasi kad temu janji interaktif untuk memudahkan ibu bapa memantau rekod kesihatan.</p>
+                </div>
+            </div>
 
-<button class="btn-nav btn-pulse" style="background: var(--pastel-purple); color: #2B2D42;" onclick="showScreen('screen-about')">
-?? <span id="btn-about-pictomate">Apa itu "PICTO MATE"?</span>
-</button>
+        </div>
+    </div>
 
-<button class="btn-nav" style="background: var(--pastel-green); color: white;" onclick="showScreen('screen-age')">
-?? <span id="btn-check-milestone">Semak Perkembangan Anak</span>
-</button>
-<button class="btn-nav btn-pulse" style="background: var(--pastel-orange); color: white;" onclick="showScreen('screen-tca')">
-?? <span id="btn-set-tca">Set Peringatan Temujanji (TCA)</span>
-</button>
-<button class="btn-nav" style="background: var(--danger-red); color: white;" onclick="showScreen('screen-redflags-main')">
-?? <span id="btn-alert-redflags">Alert Tanda Bahaya (Red Flags)</span>
-</button>
+    <!-- Main Content Area -->
+    <main>
 
-<hr style="border: 1px dashed #CBD5E1; margin: 25px 0;">
+        <!-- 2. Bahagian Perkembangan Kanak-Kanak (Kekal & Selamat) -->
+        <h2 class="section-title">Panduan Perkembangan Kanak-Kanak</h2>
+        
+        <div class="grid-perkembangan">
+            
+            <!-- Kad Umur 1.5 - 2 Tahun -->
+            <div class="card-perkembangan">
+                <h3>Umur 1.5 - 2 Tahun</h3>
+                <ul>
+                    <li>Mula berjalan dengan stabil & berlari kecil.</li>
+                    <li>Boleh menyebut sekurang-kurangnya 10-20 patah perkataan.</li>
+                    <li>Mula pandai meniru aksi atau perbuatan orang dewasa.</li>
+                    <li>Boleh menyuap makanan sendiri menggunakan sudu.</li>
+                </ul>
+            </div>
 
-<h3 style="font-family: 'Fredoka One'; text-align:center; color: #2B2D42;" id="txt-faq-header">? SOALAN LAZIM (FAQ)</h3>
+            <!-- Kad Umur 2 - 3 Tahun -->
+            <div class="card-perkembangan">
+                <h3>Umur 2 - 3 Tahun</h3>
+                <ul>
+                    <li>Boleh melompat dengan kedua-dua belah kaki.</li>
+                    <li>Membentuk ayat mudah (2-3 patah perkataan).</li>
+                    <li>Mula menunjukkan minat untuk *potty training*.</li>
+                    <li>Boleh menyusun blok mainan secara menegak.</li>
+                </ul>
+            </div>
 
-<div class="faq-item" onclick="toggleFaq(this)">
-<div class="faq-question"><span id="faq-q1">?? Kenapa perlu check perkembangan anak ke klinik?</span> <span>?</span></div>
-<div class="faq-answer" id="faq-a1">Fasa umur 1.5 tahun hingga 6 tahun amat kritikal bagi perkembangan kognitif, motor, dan pertuturan kanak-kanak. Kesan awal dapat mengelakkan isu lewat (delay).</div>
-</div>
-<div class="faq-item" onclick="toggleFaq(this)">
-<div class="faq-question"><span id="faq-q2">?? Bagaimana sistem peringatan bertindak?</span> <span>?</span></div>
-<div class="faq-answer" id="faq-a2">Sistem akan menyelaraskan temujanji ke kalendar telefon pintar anda dengan tetapan peringatan automatik agar tidak terlepas tarikh penting.</div>
-</div>
-<div class="faq-item" onclick="toggleFaq(this)">
-<div class="faq-question"><span id="faq-q3">?? Apakah maksud singkatan P&P pada bookmark?</span> <span>?</span></div>
-<div class="faq-answer" id="faq-a3">P&P bermaksud Perkembangan dan Pertumbuhan. Ia merujuk kepada pemantauan fizikal, berat badan, ketinggian, serta pencapaian kemahiran motor dan kognitif anak mengikut jadual umur klinik.</div>
-</div>
-<div class="faq-item" onclick="toggleFaq(this)">
-<div class="faq-question"><span id="faq-q4">?? M-CHAT tu pula apa jenis pemeriksaan?</span> <span>?</span></div>
-<div class="faq-answer" id="faq-a4">M-CHAT ialah singkatan bagi Modified Checklist for Autism in Toddlers. Ia merupakan alat saringan ringkas berbentuk borang soal selidik untuk menilai risiko autisme pada kanak-kanak berusia 16 hingga 30 bulan.</div>
-</div>
+            <!-- Kad Umur 4 - 6 Tahun -->
+            <div class="card-perkembangan">
+                <h3>Umur 4 - 6 Tahun</h3>
+                <ul>
+                    <li>Boleh melompat sebelah kaki & menangkap bola.</li>
+                    <li>Bercerita dengan lancar dan menggunakan ayat penuh.</li>
+                    <li>Mula belajar menulis nama sendiri & mewarna.</li>
+                    <li>Boleh bergaul dan bermain bersama rakan sebaya.</li>
+                </ul>
+            </div>
 
-</div>
-</div>
+        </div>
 
-<div id="screen-about" style="display:none;">
-<div class="app-header" id="txt-header-about">MENGENAI PICTO MATE</div>
-<div class="content-padding">
-<div class="image-canvas-card" style="border-color: var(--pastel-purple); animation-duration: 3.5s;">
-<span class="main-emoji">??????</span>
-<b style="font-size:15px; color:#4A5568; display:block;" id="txt-img-title-about">Mudah • Pantas • Sentiasa Ingat</b>
-</div>
+        <!-- Bahagian Info Tambahan / CTA Card -->
+        <div class="info-action-box">
+            <h2>Sistem Penjadualan Pintar PICTO MATE</h2>
+            <p>Mudah, interaktif, dan mesra pengguna. Direka khas untuk memastikan rekod imunisasi dan kehadiran ke Klinik Kesihatan sentiasa dalam radar anda.</p>
+            <button class="btn-main" onclick="alert('Fungsi Smart TCA akan datang!')">Semak Tarikh Temu Janji Anda</button>
+        </div>
 
-<div style="font-size: 14px; line-height: 1.6; color: #4A5568; background: white; padding: 20px; border-radius: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); margin-bottom: 20px;">
-<p id="about-intro" style="font-weight: 600; margin-top: 0;">PICTO MATE ialah ekosistem Penanda Buku Pintar & Peringatan Digital untuk memudahkan urusan temu janji klinik anak anda:</p>
-<hr style="border: 0; border-top: 1px dashed #E2E8F0; margin: 12px 0;">
-<p><strong>• PICTO:</strong> <span id="about-picto">Penanda buku fizikal berkod warna dan emoji. Faham tujuan temu janji anak dalam 3 saat sahaja!</span></p>
-<p><strong>• MATE:</strong> <span id="about-mate">Sistem imbas QR pintar untuk masukkan peringatan temu janji terus ke kalendar telefon anda secara automatik.</span></p>
-<hr style="border: 0; border-top: 1px dashed #E2E8F0; margin: 12px 0;">
-<p id="about-modes" style="margin-bottom: 0; font-size: 13px; color: #718096;">? **Dua Fungsi:** Boleh diselit dalam buku kesihatan anak, atau ditampal pada peti sejuk rumah menggunakan magnet!</p>
-</div>
-<button class="btn-nav" style="background:#90A4AE; color:white;" onclick="showScreen('screen-home')">?? <span class="txt-home-btn">Ke Laman Utama</span></button>
-</div>
-</div>
-
-<div id="screen-age" style="display:none;">
-<div class="app-header" id="txt-header-pemeriksaan">PEMERIKSAAN ANAK</div>
-<div class="content-padding">
-<div class="image-canvas-card" style="border-color: var(--pastel-green); animation-duration: 3s;">
-<span class="main-emoji">??????</span>
-<b style="font-size:15px; color:#4A5568; display:block;" id="txt-img-title-2">Milestone Dashboard</b>
-</div>
-<p style="text-align: center; font-weight: 600; color: #64748B;" id="txt-select-age-p">Sila pilih peringkat umur anak mak & ayah:</p>
-<div class="grid-age">
-<button class="btn-age" style="background:#6B8E23" onclick="showMilestone('1y6m')">1y 6m</button>
-<button class="btn-age" style="background:#F497B1" onclick="showMilestone('1y9m')">1y 9m</button>
-<button class="btn-age" style="background:#CDB4DB" onclick="showMilestone('2y')">2y</button>
-<button class="btn-age" style="background:#FFD166; color: #555;" onclick="showMilestone('2y6m')">2y 6m</button>
-<button class="btn-age" style="background:#FF9F1C" onclick="showMilestone('3y')">3y</button>
-<button class="btn-age" style="background:#CDB4DB" onclick="showMilestone('3y6m')">3y 6m</button>
-<button class="btn-age" style="background:#FFD166; color: #555;" onclick="showMilestone('4y')">4y</button>
-<button class="btn-age" style="background:#FF9F1C" onclick="showMilestone('4y6m')">4y 6m</button>
-<button class="btn-age" style="background:#F497B1" onclick="showMilestone('5y')">5y</button>
-<button class="btn-age" style="background:#6B8E23" onclick="showMilestone('6y')">6y</button>
-</div>
-<button class="btn-nav" style="background:#90A4AE; color:white; margin-top: 30px;" onclick="showScreen('screen-home')">?? <span class="txt-home-btn">Ke Laman Utama</span></button>
-</div>
-</div>
-
-<div id="screen-milestone-detail" style="display:none;">
-<div class="app-header" id="milestone-title">PERKEMBANGAN</div>
-<div class="content-padding">
-<div class="image-canvas-card" style="border-color: var(--pastel-pink); animation-duration: 4s; margin-bottom:15px;">
-<span class="main-emoji" id="dynamic-milestone-emoji">??????????</span>
-<span class="canva-tag" id="txt-graphic-data">Jom Semak Perkembangan Anak!</span>
-</div>
-<p style="font-size: 12px; font-weight: bold; margin: 5px 0; color: #4A5568; text-align: center;" id="txt-progress-instruction">Klik pada kotak perkembangan yang anak sudah capai: ??</p>
-<div class="progress-container">
-<div class="progress-bar" id="milestone-progress"></div>
-<div class="progress-text" id="milestone-progress-text">0/4 Dicapai (0%)</div>
-</div>
-<div id="milestone-boxes-container"></div>
-<div class="redflags-card">
-<h4 style="margin:0 0 5px 0; color: var(--danger-red);">?? RED FLAGS (<span class="txt-redflags-alert-title">Sila Alert!</span>):</h4>
-<div id="milestone-redflags-content" style="font-size:13px; font-weight:600; line-height:1.5;"></div>
-</div>
-<div class="footer-buttons" style="display:flex; gap:10px; margin-top:20px;">
-<button class="btn-nav" style="background:#90A4AE; color:white; flex:1; margin-bottom:0;" onclick="showScreen('screen-age')">?? <span id="txt-back-btn">Kembali</span></button>
-<button class="btn-nav" style="background:var(--pastel-orange); color:white; flex:1; margin-bottom:0;" onclick="showScreen('screen-tca')">?? Set TCA</button>
-</div>
-</div>
-</div>
-
-<div id="screen-redflags-main" style="display:none;">
-<div class="app-header" style="background: var(--danger-red); color: white;" id="txt-header-redflags-main">?? TANDA BAHAYA UTAMA</div>
-<div class="content-padding">
-<div class="image-canvas-card" style="border-color: var(--danger-red);">
-<span class="main-emoji" style="animation: float 2s infinite;">??????</span>
-</div>
-<div class="bubble-chat" style="background: var(--danger-red); box-shadow: none;" id="txt-redflags-warning-box">
-Mak & ayah, jika anak menunjukkan tanda-tanda kejatuhan atau regresi ini pada bila-bila masa fasa umur, sila buat pemeriksaan segera:
-</div>
-<div class="milestone-box" style="border-left-color: var(--danger-red); cursor: default;">
-<b id="rf-m1-title">?? Kehilangan Kemahiran Spontan:</b> <span id="rf-m1-desc">Anak tiba-tiba langsung tak bercakap atau bertindak buat benda yang pernah dia kuasai sebelum ini.</span>
-</div>
-<div class="milestone-box" style="border-left-color: var(--danger-red); cursor: default;">
-<b id="rf-m2-title">?? Tiada Tindak Balas Sosial:</b> <span id="rf-m2-desc">Tiada eye-contact langsung, tidak berpaling bila nama dicari, atau mengasingkan diri sepenuhnya.</span>
-</div>
-<button class="btn-nav" style="background:#90A4AE; color:white; margin-top:20px;" onclick="showScreen('screen-home')">?? <span class="txt-home-btn">Ke Laman Utama</span></button>
-</div>
-</div>
-
-<div id="screen-tca" style="display:none;">
-<div class="app-header" style="background: var(--pastel-orange); color: white;" id="txt-header-tca-form">?? SET TEMUJANJI</div>
-<div class="content-padding">
-<div class="image-canvas-card" style="border-color: var(--pastel-orange); animation-duration: 3.5s;">
-<span class="main-emoji">?????</span>
-<b style="font-size:15px; color:#4A5568; display:block;" id="txt-img-title-3">Digital Reminder Ecosystem of PICTO MATE</b>
-</div>
-<div class="bubble-chat" style="background: var(--pastel-orange); box-shadow: none;" id="txt-tca-instruction">
-Sila pilih tarikh dan waktu temu janji klinik seterusnya. Maklumat peringatan akan terus dimasukkan ke kalendar telefon anda!
-</div>
-<div class="form-group">
-<label id="lbl-date">?? Tarikh Temujanji Klinik:</label>
-<input type="date" id="tca-date">
-</div>
-<div class="form-group">
-<label id="lbl-time">? Masa Temujanji:</label>
-<input type="time" id="tca-time">
-</div>
-<button class="btn-nav btn-pulse" style="background: var(--pastel-green); color: white;" onclick="processTcaSyncAndDownload()">
-?? <span id="btn-save-sync-text">Simpan & Masuk Ke Kalendar Telefon</span>
-</button>
-<button class="btn-nav" style="background:#90A4AE; color:white; margin-top: 15px;" onclick="showScreen('screen-home')">?? <span class="txt-home-btn">Ke Laman Utama</span></button>
-</div>
-</div>
-
-</div>
-
-<script>
-const i18n = {
-ms: {
-appTitle: "PICTO MATE", imgTitle1: "Smart Tracking & Peringatan Hub", welcome: "Kami faham, menguruskan jadual harian dan temu janji klinik anak boleh menjadi sangat mencabar buat mak & ayah!",
-aboutBtn: "Apa itu \"PICTO MATE\"?", headerAbout: "MENGENAI PICTO MATE", imgTitleAbout: "Mudah • Pantas • Sentiasa Ingat",
-aboutIntro: "PICTO MATE ialah ekosistem Penanda Buku Pintar & Peringatan Digital untuk memudahkan urusan temu janji klinik anak anda:",
-aboutPicto: "Penanda buku fizikal berkod warna dan emoji. Faham tujuan temu janji anak dalam 3 saat sahaja!",
-aboutMate: "Sistem imbas QR pintar untuk masukkan peringatan temu janji terus ke kalendar telefon anda secara automatik.",
-aboutModes: "? **Dua Fungsi:** Boleh diselit dalam buku kesihatan anak, atau ditampal pada peti sejuk rumah menggunakan magnet!",
-checkMilestone: "Semak Perkembangan Anak", setTca: "Set Peringatan Temujanji (TCA)", alertRedflags: "Alert Tanda Bahaya (Red Flags)", faqHeader: "? SOALAN LAZIM (FAQ)",
-q1: "?? Kenapa perlu check perkembangan anak ke klinik?", a1: "Fasa umur 1.5 tahun hingga 6 tahun amat kritikal bagi perkembangan kognitif, motor, dan pertuturan kanak-kanak. Kesan awal dapat mengelakkan isu lewat (delay).",
-q2: "?? Bagaimana sistem peringatan bertindak?", a2: "Sistem akan menyelaraskan temujanji ke kalendar telefon pintar anda dengan tetapan peringatan automatik agar tidak terlepas tarikh penting.",
-q3: "?? Apakah maksud singkatan P&P pada bookmark?", a3: "P&P bermaksud Perkembangan dan Pertumbuhan. Ia merujuk kepada pemantauan fizikal, berat badan, ketinggian, serta pencapaian kemahiran motor dan kognitif anak mengikut jadual umur klinik.",
-q4: "?? M-CHAT tu pula apa jenis pemeriksaan?", a4: "M-CHAT ialah singkatan bagi Modified Checklist for Autism in Toddlers. Ia merupakan alat saringan ringkas berbentuk borang soal selidik untuk menilai risiko autisme pada kanak-kanak berusia 16 hingga 30 bulan.",
-headerPemeriksaan: "PEMERIKSAAN ANAK", selectAgeP: "Sila pilih peringkat umur anak mak & ayah:", imgTitle2: "Milestone Dashboard", homeBtn: "Ke Laman Utama",
-graphicData: "Jom Semak Perkembangan Anak!", redflagsAlertTitle: "Sila Alert!", backBtn: "Kembali", headerRedflagsMain: "?? TANDA BAHAYA UTAMA",
-rfWarningBox: "Mak & ayah, jika anak menunjukkan tanda-tanda kejatuhan atau regresi ini pada bila-bila masa fasa umur, sila buat pemeriksaan segera:",
-rfm1t: "?? Kehilangan Kemahiran Spontan:", rfm1d: "Anak tiba-tiba langsung tak bercakap atau bertindak buat benda yang pernah dia kuasai sebelum ini.",
-rfm2t: "?? Tiada Tindak Balas Sosial:", rfm2d: "Tiada eye-contact langsung, tidak berpaling bila nama dicari, atau mengasingkan diri sepenuhnya.",
-headerTcaForm: "?? SET TEMUJANJI", imgTitle3: "Digital Reminder Ecosystem of PICTO MATE", tcaInstruction: "Sila pilih tarikh dan waktu temu janji klinik seterusnya. Maklumat peringatan akan terus dimasukkan ke kalendar telefon anda!",
-lblDate: "?? Tarikh Temujanji Klinik:", lblTime: "? Masa Temujanji:", btnSaveSync: "Simpan & Masuk Ke Kalendar Telefon",
-alertFill: "Tolong isi tarikh dan masa temujanji dulu ya, mak/ayah! ??", syncTitleText: "Menghantar Data Sistem...",
-syncDescText: "Menyimpan data temujanji mak & ayah ke server team backend untuk rekod pemantauan utama...",
-alertSuccess: "?? Berjaya! Membuka aplikasi kalendar anda untuk penjimatan masa nyata. Sila tekan 'Save' di dalam kalendar telefon.",
-progressInstruction: "Klik pada kotak perkembangan yang anak sudah capai: ??",
-badgeNotAchieved: "Belum", badgeAchieved: "Dicapai! ??"
-},
-en: {
-appTitle: "PICTO MATE", imgTitle1: "Smart Tracking & Reminder Hub", welcome: "We understand, managing daily schedules and clinic appointments for your child can be very challenging for parents!",
-aboutBtn: "What is \"PICTO MATE\"?", headerAbout: "ABOUT PICTO MATE", imgTitleAbout: "Easy • Fast • Always Remember",
-aboutIntro: "PICTO MATE is a Smart Bookmark & Digital Reminder ecosystem to ease your child's clinic appointment schedules:",
-aboutPicto: "Physical bookmark with color codes and emojis. Understand appointment goals in just 3 seconds!",
-aboutMate: "Smart QR scan system to instantly add appointment reminders directly to your phone calendar automatically.",
-aboutModes: "? **Dual Function:** Tuck it in your child's health record book, or stick it on the fridge using magnets!",
-checkMilestone: "Check Child Milestones", setTca: "Set Appointment Reminder (TCA)", alertRedflags: "Danger Signs Alert (Red Flags)", faqHeader: "? FREQUENTLY ASKED QUESTIONS (FAQ)",
-q1: "?? Why check child development at the clinic?", a1: "The age phase from 1.5 to 6 years is extremely critical for a child's cognitive, motor, and language development. Early detection prevents delay issues.",
-q2: "?? How does the system work?", a2: "The system synchronizes the appointment to your smartphone's calendar with automatic reminder settings so you don't miss important dates.",
-q3: "?? What is the meaning of P&P abbreviation on the bookmark?", a3: "P&P stands for Growth and Development (Perkembangan dan Pertumbuhan). It refers to the physical monitoring of weight, height, as well as the achievement of motor and cognitive milestones according to the clinic schedule.",
-q4: "?? What kind of assessment is M-CHAT?", a4: "M-CHAT stands for Modified Checklist for Autism in Toddlers. It is a brief screening questionnaire tool used to evaluate autism risk in toddlers aged 16 to 30 months.",
-headerPemeriksaan: "CHILD ASSESSMENT", selectAgeP: "Please choose your child's age group:", imgTitle2: "Milestone Dashboard", homeBtn: "Back to Home",
-graphicData: "Let's Check Child Milestones!", redflagsAlertTitle: "Be Alert!", backBtn: "Back", headerRedflagsMain: "?? MAIN DANGER SIGNS",
-rfWarningBox: "Parents, if your child shows signs of regression or skill loss at any age phase, please seek immediate medical assessment:",
-rfm1t: "?? Loss of Spontaneous Skills:", rfm1d: "The child suddenly stops talking or doing things they previously mastered.",
-rfm2t: "?? No Social Responsiveness:", rfm2d: "No eye contact at all, does not turn when called, or fully isolates themselves.",
-headerTcaForm: "?? APPOINTMENT SETTING", imgTitle3: "Digital Reminder Ecosystem of PICTO MATE", tcaInstruction: "Please select your next clinic appointment date and time. The reminder will be added directly to your phone calendar!",
-lblDate: "?? Clinic Appointment Date:", lblTime: "? Appointment Time:", btnSaveSync: "Save & Open Phone Calendar",
-alertFill: "Please fill in the appointment date and time first, parents! ??", syncTitleText: "Sending System Data...",
-syncDescText: "Synchronizing parents' appointment metadata to the backend team database for tracking purposes...",
-alertSuccess: "?? Success! Opening your calendar app. Please press 'Save' inside your phone's calendar.",
-progressInstruction: "Click on the milestone boxes your child has achieved: ??",
-badgeNotAchieved: "Not Yet", badgeAchieved: "Achieved! ??"
-}
-};
-
-let currentLang = 'ms';
-
-function changeLanguage(lang) {
-currentLang = lang;
-const dict = i18n[lang];
-if(!dict) return;
-
-document.getElementById('txt-app-title').innerText = dict.appTitle;
-document.getElementById('txt-img-title-1').innerText = dict.imgTitle1;
-document.getElementById('txt-welcome').innerText = dict.welcome;
-document.getElementById('btn-about-pictomate').innerText = dict.aboutBtn;
-document.getElementById('btn-check-milestone').innerText = dict.checkMilestone;
-document.getElementById('btn-set-tca').innerText = dict.setTca;
-document.getElementById('btn-alert-redflags').innerText = dict.alertRedflags;
-document.getElementById('txt-faq-header').innerText = dict.faqHeader;
-document.getElementById('faq-q1').innerText = dict.q1;
-document.getElementById('faq-a1').innerText = dict.a1;
-document.getElementById('faq-q2').innerText = dict.q2;
-document.getElementById('faq-a2').innerText = dict.a2;
-document.getElementById('faq-q3').innerText = dict.q3;
-document.getElementById('faq-a3').innerText = dict.a3;
-document.getElementById('faq-q4').innerText = dict.q4;
-document.getElementById('faq-a4').innerText = dict.a4;
-
-document.getElementById('txt-header-about').innerText = dict.headerAbout;
-document.getElementById('txt-img-title-about').innerText = dict.imgTitleAbout;
-document.getElementById('about-intro').innerText = dict.aboutIntro;
-document.getElementById('about-picto').innerText = dict.aboutPicto;
-document.getElementById('about-mate').innerText = dict.aboutMate;
-document.getElementById('about-modes').innerText = dict.aboutModes;
-
-document.getElementById('txt-header-pemeriksaan').innerText = dict.headerPemeriksaan;
-document.getElementById('txt-img-title-2').innerText = dict.imgTitle2;
-document.getElementById('txt-select-age-p').innerText = dict.selectAgeP;
-const homeBtns = document.querySelectorAll('.txt-home-btn');
-homeBtns.forEach(b => b.innerText = dict.homeBtn);
-
-document.getElementById('txt-graphic-data').innerText = dict.graphicData;
-document.querySelector('.txt-redflags-alert-title').innerText = dict.redflagsAlertTitle;
-document.getElementById('txt-back-btn').innerText = dict.backBtn;
-
-document.getElementById('txt-header-redflags-main').innerText = dict.headerRedflagsMain;
-document.getElementById('txt-redflags-warning-box').innerText = dict.rfWarningBox;
-document.getElementById('rf-m1-title').innerText = dict.rfm1t;
-document.getElementById('rf-m1-desc').innerText = dict.rfm1d;
-document.getElementById('rf-m2-title').innerText = dict.rfm2t;
-document.getElementById('rf-m2-desc').innerText = dict.rfm2d;
-
-document.getElementById('txt-header-tca-form').innerText = dict.headerTcaForm;
-document.getElementById('txt-img-title-3').innerText = dict.imgTitle3;
-document.getElementById('txt-tca-instruction').innerText = dict.tcaInstruction;
-document.getElementById('lbl-date').innerText = dict.lblDate;
-document.getElementById('lbl-time').innerText = dict.lblTime;
-document.getElementById('btn-save-sync-text').innerText = dict.btnSaveSync;
-document.getElementById('txt-progress-instruction').innerText = dict.progressInstruction;
-
-updateProgressBar();
-}
-
-/* DATA DIKEMAS KINI MENGIKUT DOKUMEN PDF PENILAIAN PERKEMBANGAN KANAK-KANAK 0-6 TAHUN */
-const databaseMilestone = {
-'1y6m': {
-title: "UMUR 1 TAHUN 6 BULAN (18 BULAN)",
-emoji: "??????????", 
-motorKasar: "Berjalan sendiri, membongkok untuk mengambil barang di lantai dan berdiri semula.",
-motorHalus: "Mengambil benda kecil menggunakan ibu jari dan jari telunjuk, boleh menconteng semula, membina menara 3 kubus.",
-speech: "Faham perkataan senang, mengangguk dan menggeleng kepala untuk ya atau tidak, menyebut sekurang-kurangnya 3 perkataan bermakna, mengulang perkataan yang didengar dalam perbualan.",
-social: "Mengetuk dua permainan bersama secara sosial.",
-redflags: "Belum boleh berjalan sendiri, tidak menunjukkan tindak balas sosial, tiada perkataan bermakna dituturkan."
-},
-'1y9m': {
-title: "UMUR 1 TAHUN 9 BULAN (21 BULAN)",
-emoji: "RUN???", 
-motorKasar: "Boleh berlari anak dengan agak stabil, menendang bola besar ke hadapan dengan kaki.",
-motorHalus: "Meletakkan menara 4-5 kiub mainan, seronok menyelak halaman buku (2-3 helai sekali gus).",
-speech: "Menggunakan sekitar 10 hingga 15 perkataan bermakna. Mula memahami konsep kepunyaan ('baju adik').",
-social: "Suka menyuap makanan sendiri menggunakan sudu walaupun comot, mula pandai bermain sembunyi-sembunyi.",
-redflags: "Tidak berminat bermain atau berinteraksi dengan orang sekeliling, tiada perkataan bermakna dituturkan."
-},
-'2y': {
-title: "UMUR 2 TAHUN (24 BULAN)",
-emoji: "?????????", 
-motorKasar: "Pandai berjalan, berlari dengan stabil, memanjat tangga dengan meletakkan dua kaki pada satu anak tangga.",
-motorHalus: "Membina menara setinggi 6 kubus, pandai membuka muka surat buku satu per satu.",
-speech: "Faham dua peringkat arahan (contoh: 'ambil cawan dan beri pada ibu'), pandai menggunakan ayat ringkas (gabungan 2-3 patah perkataan).",
-social: "Mula meniru tugasan rumah tangga ringkas, meniru perlakuan atau gaya orang dewasa di sekeliling.",
-redflags: "Belum boleh mencantumkan dua patah kata, tidak faham arahan mudah, gaya berjalan masih terhuyung-hayang."
-},
-'2y6m': {
-title: "UMUR 2 TAHUN 6 BULAN (30 BULAN)",
-emoji: "??????", 
-motorKasar: "Boleh memanjat tangga dengan kaki berselang-seli sekiranya tangan dipimpin.",
-motorHalus: "Memegang pensel dengan jari (bukan genggaman penumbuk), boleh meniru lukisan garis lurus.",
-speech: "Faham ayat yang lebih panjang, pandai sebut nama sendiri apabila ditanya, pandai guna kata ganti (saya/awak).",
-social: "Mula menunjukkan empati (cth: sedih tengok kawan nangis), mula belajar berkongsi mainan dengan bimbingan.",
-redflags: "Sebut perkataan yang tidak jelas/pelik, tidak pandai memegang objek kecil menggunakan jari."
-},
-'3y': {
-title: "UMUR 3 TAHUN (36 BULAN)",
-emoji: "??????????", 
-motorKasar: "Berlari dengan lebih cekap, pandai melompat dan memanjat objek rendah.",
-motorHalus: "Menyalin bentuk bulatan dengan bimbingan, membina objek ringkas.",
-speech: "Memahami ayat ringkas yang dituturkan dan pandai menjawab soalan-soalan senang.",
-social: "Penglihatan sudah berkembang penuh seperti seorang dewasa.",
-redflags: "Gagal memahami arahan mudah, kerap jatuh ketika berjalan, atau pertuturan langsung tidak difahami orang luar."
-},
-'3y6m': {
-title: "UMUR 3 TAHUN 6 BULAN (42 BULAN)",
-emoji: "?????", 
-motorKasar: "Boleh melompat turun dari anak tangga dengan selamat menggunakan kedua-dua belah kaki.",
-motorHalus: "Boleh menggunting kertas mengikut garisan lurus kasar, membina bangunan kiub yang tinggi.",
-speech: "Banyak bertanya soalan 'Kenapa?' dan 'Apa?'. Boleh menceritakan semula aktiviti ringkas yang dilakukan.",
-social: "Mulai mempunyai imaginasi yang kaya (cth: bermain acah-acah jadi superhero), mengekspresikan pelbagai emosi.",
-redflags: "Masih gagap melampau, tidak berminat bersosial dengan kanak-kanak sebaya."
-},
-'4y': {
-title: "UMUR 4 TAHUN (48 BULAN)",
-emoji: "???????", 
-motorKasar: "Lompat dengan menggunakan sebelah kaki, boleh turun dan naik tangga dengan lancar seperti orang dewasa.",
-motorHalus: "Boleh melihat huruf dengan jelas pada jarak saringan 6 meter.",
-speech: "Mampu mengikut dan melaksanakan arahan yang mengandungi 3 peringkat.",
-social: "Mula berinteraksi aktif secara sosial bersama rakan-rakan sebaya.",
-redflags: "Tidak boleh melompat di tempat yang sama, gagal menguasai kemahiran memegang pensel dengan betul."
-},
-'4y6m': {
-title: "UMUR 4 TAHUN 6 BULAN (54 BULAN)",
-emoji: "??????", 
-motorKasar: "Boleh berjalan secara undur ke belakang dengan stabil dan seimbang tanpa terjatuh.",
-motorHalus: "Boleh menulis nama sendiri yang pendek, melukis bentuk segi empat dengan agak tepat.",
-speech: "Boleh menerangkan fungsi objek harian dengan baik (cth: 'Kerusi untuk duduk').",
-social: "Suka membantu tugasan orang dewasa, lebih patuh kepada peraturan permainan berkumpulan.",
-redflags: "Pertuturan masih tidak lancar, kerap menunjukkan tantrum yang agresif di luar kawalan."
-},
-'5y': {
-title: "UMUR 5 TAHUN (60 BULAN)",
-emoji: "??????", 
-motorKasar: "Lompat melepasi tali (setinggi 12cm), berdiri di atas sebelah kaki selama 10 saat.",
-motorHalus: "Membina menara kiub tinggi, melukis gambar orang dengan lengkap sekurang-kurangnya 6 bahagian badan, memadankan 4 jenis warna berbeza.",
-speech: "Tahu membezakan arah kanan dan kiri, menggunakan ayat ringkas untuk cerita rekaan, memahami perkataan situasi (seperti lapar, atas), percakapan 100% difahami oleh orang luar, mengira nombor sehingga 10.",
-social: "Pandai memadan benda pada diri sendiri, sedia berkongsi mainan dengan rakan, pandai membuka dan menutup butang baju sendiri.",
-redflags: "Langsung tidak pandai merespon perbualan, mempamerkan tingkah laku ekstrem (terlalu takut/agresif)."
-},
-'6y': {
-title: "UMUR 6 TAHUN (72 BULAN)",
-emoji: "?????????", 
-motorKasar: "Membaling bola ke atas dan menangkapnya semula dengan cekap, pandai mengayuh basikal roda dua.",
-motorHalus: "Membina bentuk tangga & tingkat menggunakan 10 buah kiub, menyalin bentuk empat segi berpalang, melukis gambar orang yang lengkap dengan 12 bahagian.",
-speech: "Sangat banyak bertanya untuk belajar perkara baru, bercakap dengan gaya yang bijak, lancar, dan petah.",
-social: "Menggemari permainan imaginasi (imaginative play), pandai mengikut giliran secara adil dalam permainan.",
-redflags: "Mengalami masalah tumpuan melampau, tidak mampu mengikut rutin harian mudah di sekolah."
-}
-};
-
-function showScreen(screenId) {
-document.getElementById('screen-home').style.display = 'none';
-document.getElementById('screen-about').style.display = 'none';
-document.getElementById('screen-age').style.display = 'none';
-document.getElementById('screen-milestone-detail').style.display = 'none';
-document.getElementById('screen-redflags-main').style.display = 'none';
-document.getElementById('screen-tca').style.display = 'none';
-
-document.getElementById(screenId).style.display = 'block';
-window.scrollTo(0, 0);
-}
-
-function showMilestone(ageKey) {
-const data = databaseMilestone[ageKey];
-if (!data) return;
-
-document.getElementById('milestone-title').innerText = data.title;
-document.getElementById('dynamic-milestone-emoji').innerText = data.emoji || "?????";
-
-const dict = i18n[currentLang] || i18n['ms'];
-const container = document.getElementById('milestone-boxes-container');
-
-container.innerHTML = `
-<div class="milestone-box motor-kasar" onclick="toggleMilestoneAchieved(this)">
-<h4><span>????? Motor Kasar</span> <span class="check-badge">${dict.badgeNotAchieved}</span></h4>
-<p style="font-size:13px; margin:0;">${data.motorKasar}</p>
-</div>
-<div class="milestone-box motor-halus" onclick="toggleMilestoneAchieved(this)">
-<h4><span>?? Motor Halus / Adaptif</span> <span class="check-badge">${dict.badgeNotAchieved}</span></h4>
-<p style="font-size:13px; margin:0;">${data.motorHalus}</p>
-</div>
-<div class="milestone-box speech" onclick="toggleMilestoneAchieved(this)">
-<h4><span>??? Pertuturan & Kognitif</span> <span class="check-badge">${dict.badgeNotAchieved}</span></h4>
-<p style="font-size:13px; margin:0;">${data.speech}</p>
-</div>
-<div class="milestone-box social" onclick="toggleMilestoneAchieved(this)">
-<h4><span>?? Sosio-Emosi / Personal</span> <span class="check-badge">${dict.badgeNotAchieved}</span></h4>
-<p style="font-size:13px; margin:0;">${data.social}</p>
-</div>
-`;
-
-document.getElementById('milestone-redflags-content').innerText = data.redflags;
-updateProgressBar(); 
-showScreen('screen-milestone-detail');
-}
-
-function toggleMilestoneAchieved(boxElement) {
-const dict = i18n[currentLang] || i18n['ms'];
-const badge = boxElement.querySelector('.check-badge');
-
-if (boxElement.classList.contains('achieved')) {
-boxElement.classList.remove('achieved');
-badge.innerText = dict.badgeNotAchieved;
-} else {
-boxElement.classList.add('achieved');
-badge.innerText = dict.badgeAchieved;
-}
-
-updateProgressBar();
-}
-
-function updateProgressBar() {
-const totalBoxes = document.querySelectorAll('#milestone-boxes-container .milestone-box').length;
-if(totalBoxes === 0) return;
-
-const achievedBoxes = document.querySelectorAll('#milestone-boxes-container .milestone-box.achieved').length;
-const percentage = Math.round((achievedBoxes / totalBoxes) * 100);
-
-const progressBar = document.getElementById('milestone-progress');
-const progressText = document.getElementById('milestone-progress-text');
-
-progressBar.style.width = percentage + '%';
-
-if (currentLang === 'ms') {
-progressText.innerText = `${achievedBoxes}/${totalBoxes} Dicapai (${percentage}%)`;
-} else {
-progressText.innerText = `${achievedBoxes}/${totalBoxes} Achieved (${percentage}%)`;
-}
-
-if (achievedBoxes === totalBoxes && typeof confetti === 'function') {
-confetti({ particleCount: 100, spread: 60, origin: { y: 0.6 } });
-}
-}
-
-function toggleFaq(element) {
-const answer = element.querySelector('.faq-answer');
-const icon = element.querySelector('.faq-question span:last-child');
-
-if (answer.style.display === 'block') {
-answer.style.display = 'none';
-icon.innerText = '?';
-} else {
-answer.style.display = 'block';
-icon.innerText = '?';
-}
-}
-
-/* FUNGSI DEEP LINK GOOGLE CALENDAR WEB INTENT - HALANG KEGUNAAN FILE .ICS */
-function processTcaSyncAndDownload() {
-  const dateVal = document.getElementById('tca-date').value;
-  const timeVal = document.getElementById('tca-time').value;
-  const dict = i18n[currentLang] || i18n['ms'];
-
-  if (!dateVal || !timeVal) {
-    alert(dict.alertFill);
-    return;
-  }
-
-  const syncStatus = document.getElementById('sync-status');
-  document.getElementById('sync-title').innerText = dict.syncTitleText;
-  document.getElementById('sync-desc').innerText = dict.syncDescText;
-  syncStatus.style.display = 'flex';
-
-  const dataKeDatabase = {
-    tarikh: dateVal,
-    masa: timeVal,
-    bahasa: currentLang
-  };
-
-  const URL_GOOGLE_SCRIPT = "https://script.google.com/macros/s/AKfycbzoq76_HFY2dwTlRimQzJZGsdVZ7BgjIBKPIWFZ7STDObnrdEzsJc8cf_ijxAASDVa_/exec"; 
-
-  fetch(URL_GOOGLE_SCRIPT, {
-    method: 'POST',
-    mode: 'no-cors', 
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(dataKeDatabase)
-  })
-  .then(() => {
-    syncStatus.style.display = 'none';
-
-    if (typeof confetti === 'function') {
-      confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
-    }
-
-    alert(dict.alertSuccess);
-
-    // Tukar format tarikh (YYYY-MM-DD) kepada (YYYYMMDD)
-    const formattedDate = dateVal.replace(/-/g, '');
-    // Tukar format masa (HH:MM) kepada (HHMMSS)
-    const formattedTime = timeVal.replace(/:/g, '') + '00';
-    
-    // Kira anggaran waktu tamat automatik (tambah 1 jam)
-    let endHour = parseInt(timeVal.split(':')[0]) + 1;
-    if (endHour < 10) endHour = '0' + endHour;
-    const formattedEndTime = endHour + timeVal.split(':')[1] + '00';
-
-    const eventTitle = encodeURIComponent("PictoMate: Temujanji Klinik Kesihatan ??");
-    const eventDetails = encodeURIComponent("Peringatan Temujanji Rutin Pemeriksaan & Perkembangan Anak di Klinik Kesihatan. Sila bawa Buku Rekod Kesihatan Kanak-kanak.");
-    
-    // Jana Google Calendar Web Intent URL
-    const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${eventTitle}&dates=${formattedDate}T${formattedTime}/${formattedDate}T${formattedEndTime}&details=${eventDetails}&sf=true&output=xml`;
-
-    // Buka aplikasi kalendar peranti pintar secara direct
-    window.open(googleCalendarUrl, '_blank');
-
-    showScreen('screen-home');
-  })
-  .catch((error) => {
-    console.error("Gagal hantar data:", error);
-    syncStatus.style.display = 'none';
-    
-    // Fallback automatik jika pelayan sibuk
-    const formattedDate = dateVal.replace(/-/g, '');
-    const formattedTime = timeVal.replace(/:/g, '') + '00';
-    const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=PictoMate:+Temujanji+Klinik&dates=${formattedDate}T${formattedTime}/${formattedDate}T${formattedTime}&sf=true&output=xml`;
-    window.open(googleCalendarUrl, '_blank');
-  });
-}
-</script>
+    </main>
 
 </body>
 </html>
