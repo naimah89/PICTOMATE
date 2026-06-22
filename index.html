@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PICTO MATE - Homepage</title>
+    <title>PICTO MATE - Smart TCA Bookmark</title>
     <style>
-        /* --- Tema Warna & Font (Minimalist, Fun & Elegant) --- */
+        /* --- Tema Minimalist but Fun & Elegant --- */
         :root {
-            --primary-color: #4A90E2; /* Biru lembut & profesional */
-            --secondary-color: #FF6B6B; /* Warna fun untuk elemen kanak-kanak */
+            --primary-color: #4A90E2; 
+            --secondary-color: #FF6B6B; 
             --bg-light: #F9FAFC;
             --text-dark: #2C3E50;
             --card-bg: #FFFFFF;
@@ -18,7 +18,7 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
 
         body {
@@ -27,7 +27,6 @@
             line-height: 1.6;
         }
 
-        /* --- Header / Navigation --- */
         header {
             background-color: var(--card-bg);
             padding: 1.5rem 2rem;
@@ -44,16 +43,13 @@
             font-weight: 700;
             font-size: 1.5rem;
             color: var(--primary-color);
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
 
         .logo span {
             color: var(--secondary-color);
         }
 
-        /* --- 1. BANNER GAMBAR BERGERAK (CAROUSEL) --- */
+        /* --- BANNER GAMBAR BERGERAK (CAROUSEL) --- */
         .carousel-container {
             position: relative;
             max-width: 1200px;
@@ -67,7 +63,7 @@
 
         .carousel-slide {
             display: flex;
-            width: 300%; /* Untuk 3 gambar */
+            width: 300%; 
             height: 100%;
             animation: slideAnimation 12s infinite ease-in-out;
         }
@@ -78,6 +74,7 @@
             position: relative;
         }
 
+        /* Menggunakan imej placeholder Unsplash supaya tidak keluar tanda soal (?) lagi */
         .slide img {
             width: 100%;
             height: 100%;
@@ -92,16 +89,13 @@
             background: linear-gradient(transparent, rgba(0,0,0,0.7));
             color: white;
             padding: 2rem;
-            padding-top: 4rem;
         }
 
         .slide-overlay h2 {
             font-size: 2rem;
             margin-bottom: 0.5rem;
-            font-weight: 600;
         }
 
-        /* Animasi Pergerakan Gambar (Smooth & Elegant) */
         @keyframes slideAnimation {
             0%, 25% { transform: translateX(0); }
             33%, 58% { transform: translateX(-33.333%); }
@@ -109,14 +103,14 @@
             100% { transform: translateX(0); }
         }
 
-        /* --- CONTAINER UTAMA --- */
+        /* --- MAIN CONTENT --- */
         main {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 1.5rem 4rem 1.5rem;
         }
 
-        /* --- 2. BAHAGIAN PERKEMBANGAN (JANGAN HILANG) --- */
+        /* --- BAHAGIAN PERKEMBANGAN (KEKAL) --- */
         .section-title {
             font-size: 1.8rem;
             margin: 3rem 0 1.5rem 0;
@@ -146,27 +140,15 @@
             border-radius: 16px;
             padding: 2rem;
             box-shadow: 0 8px 24px rgba(0,0,0,0.04);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
             border-top: 5px solid var(--primary-color);
         }
 
-        .card-perkembangan:nth-child(2) {
-            border-top-color: var(--secondary-color);
-        }
-
-        .card-perkembangan:nth-child(3) {
-            border-top-color: #47D165;
-        }
-
-        .card-perkembangan:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
-        }
+        .card-perkembangan:nth-child(2) { border-top-color: var(--secondary-color); }
+        .card-perkembangan:nth-child(3) { border-top-color: #47D165; }
 
         .card-perkembangan h3 {
             font-size: 1.3rem;
             margin-bottom: 1rem;
-            color: var(--text-dark);
         }
 
         .card-perkembangan ul {
@@ -177,7 +159,6 @@
             margin-bottom: 0.75rem;
             position: relative;
             padding-left: 1.5rem;
-            font-size: 0.95rem;
         }
 
         .card-perkembangan li::before {
@@ -188,7 +169,7 @@
             font-weight: bold;
         }
 
-        /* --- INFO / SMART TCA CARD BUTTON --- */
+        /* --- SMART TCA INFO BOX --- */
         .info-action-box {
             background: linear-gradient(135deg, #4A90E2, #357ABD);
             color: white;
@@ -196,19 +177,6 @@
             padding: 3rem;
             text-align: center;
             margin-top: 4rem;
-            box-shadow: 0 10px 25px rgba(74, 144, 226, 0.25);
-        }
-
-        .info-action-box h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        .info-action-box p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            max-width: 600px;
-            margin: 0 auto 2rem auto;
         }
 
         .btn-main {
@@ -220,120 +188,84 @@
             font-weight: 600;
             border-radius: 30px;
             cursor: pointer;
-            transition: background-color 0.2s ease, transform 0.2s ease;
+            margin-top: 1.5rem;
             box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
         }
 
-        .btn-main:hover {
-            background-color: #ff5252;
-            transform: scale(1.05);
-        }
-
-        /* --- Responsive Design --- */
         @media (max-width: 768px) {
-            .carousel-container {
-                height: 250px;
-            }
-            .slide-overlay h2 {
-                font-size: 1.4rem;
-            }
-            .info-action-box {
-                padding: 2rem;
-            }
+            .carousel-container { height: 250px; }
+            .slide-overlay h2 { font-size: 1.4rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Header Menu -->
     <header>
         <div class="logo">PICTO <span>MATE</span></div>
     </header>
 
-    <!-- 1. Banner Gambar Bergerak (Carousel) -->
+    <!-- Banner Gambar Bergerak -->
     <div class="carousel-container">
         <div class="carousel-slide">
-            
-            <!-- Slide 1 -->
             <div class="slide">
-                <img src="https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=1200&q=80" alt="Sesi Semakan Rutin">
+                <img src="https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=1200&q=80" alt="Rutin Klinik">
                 <div class="slide-overlay">
                     <h2>Sesi Semakan Rutin Kanak-Kanak</h2>
-                    <p>Pastikan si manja anda tidak terlepas temu janji penting untuk pertumbuhan yang sihat.</p>
+                    <p>Memastikan kehadiran temu janji si manja dari umur 1 tahun 6 bulan hingga 6 tahun sentiasa dipantau.</p>
                 </div>
             </div>
-
-            <!-- Slide 2 -->
             <div class="slide">
-                <img src="https://images.unsplash.com/photo-1536640712-4d4c36ff0e4e?auto=format&fit=crop&w=1200&q=80" alt="Perkembangan Si Manja">
+                <img src="https://images.unsplash.com/photo-1536640712-4d4c36ff0e4e?auto=format&fit=crop&w=1200&q=80" alt="Milestone">
                 <div class="slide-overlay">
-                    <h2>Pantau Milestone Anak Anda</h2>
-                    <p>Setiap fasa umur bermula dari 1 tahun 6 bulan adalah sangat kritikal.</p>
+                    <h2>Pantau Milestone Penting</h2>
+                    <p>Kenali perkembangan fizikal dan mental anak anda dengan panduan yang interaktif.</p>
                 </div>
             </div>
-
-            <!-- Slide 3 -->
             <div class="slide">
-                <img src="https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=1200&q=80" alt="Kad Temu Janji Pintar">
+                <img src="https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=1200&q=80" alt="Smart TCA">
                 <div class="slide-overlay">
                     <h2>PICTO MATE: Smart TCA</h2>
-                    <p>Inovasi kad temu janji interaktif untuk memudahkan ibu bapa memantau rekod kesihatan.</p>
+                    <p>Inovasi penanda buku pintar untuk notifikasi dan peringatan tarikh klinik kesihatan.</p>
                 </div>
             </div>
-
         </div>
     </div>
 
-    <!-- Main Content Area -->
     <main>
-
-        <!-- 2. Bahagian Perkembangan Kanak-Kanak (Kekal & Selamat) -->
+        <!-- Bahagian Perkembangan Kanak-Kanak -->
         <h2 class="section-title">Panduan Perkembangan Kanak-Kanak</h2>
-        
         <div class="grid-perkembangan">
-            
-            <!-- Kad Umur 1.5 - 2 Tahun -->
             <div class="card-perkembangan">
                 <h3>Umur 1.5 - 2 Tahun</h3>
                 <ul>
                     <li>Mula berjalan dengan stabil & berlari kecil.</li>
                     <li>Boleh menyebut sekurang-kurangnya 10-20 patah perkataan.</li>
-                    <li>Mula pandai meniru aksi atau perbuatan orang dewasa.</li>
                     <li>Boleh menyuap makanan sendiri menggunakan sudu.</li>
                 </ul>
             </div>
-
-            <!-- Kad Umur 2 - 3 Tahun -->
             <div class="card-perkembangan">
                 <h3>Umur 2 - 3 Tahun</h3>
                 <ul>
                     <li>Boleh melompat dengan kedua-dua belah kaki.</li>
                     <li>Membentuk ayat mudah (2-3 patah perkataan).</li>
                     <li>Mula menunjukkan minat untuk *potty training*.</li>
-                    <li>Boleh menyusun blok mainan secara menegak.</li>
                 </ul>
             </div>
-
-            <!-- Kad Umur 4 - 6 Tahun -->
             <div class="card-perkembangan">
                 <h3>Umur 4 - 6 Tahun</h3>
                 <ul>
                     <li>Boleh melompat sebelah kaki & menangkap bola.</li>
                     <li>Bercerita dengan lancar dan menggunakan ayat penuh.</li>
                     <li>Mula belajar menulis nama sendiri & mewarna.</li>
-                    <li>Boleh bergaul dan bermain bersama rakan sebaya.</li>
                 </ul>
             </div>
-
         </div>
 
-        <!-- Bahagian Info Tambahan / CTA Card -->
         <div class="info-action-box">
             <h2>Sistem Penjadualan Pintar PICTO MATE</h2>
-            <p>Mudah, interaktif, dan mesra pengguna. Direka khas untuk memastikan rekod imunisasi dan kehadiran ke Klinik Kesihatan sentiasa dalam radar anda.</p>
-            <button class="btn-main" onclick="alert('Fungsi Smart TCA akan datang!')">Semak Tarikh Temu Janji Anda</button>
+            <p>Mudah, interaktif, dan mesra pengguna. Direka khas untuk menangani isu keciciran kehadiran semakan rutin kesihatan kanak-kanak.</p>
+            <button class="btn-main" onclick="alert('Fungsi Smart TCA akan datang!')">Semak Tarikh Temu Janji</button>
         </div>
-
     </main>
 
 </body>
